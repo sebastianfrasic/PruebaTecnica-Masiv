@@ -1,13 +1,11 @@
 package masiv;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.Test;
 
-@SpringBootTest
-class PruebaApplicationTests {
+public class PruebaApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void doSomething() {
     }
 
 }
