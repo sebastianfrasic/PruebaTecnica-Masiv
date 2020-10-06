@@ -8,7 +8,6 @@ public class MasivApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MasivApplication.class, args);
-
     }
 
 }

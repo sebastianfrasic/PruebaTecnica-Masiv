@@ -2,7 +2,7 @@ package masiv;
 
 import org.junit.Test;
 
-public class PruebaApplicationTests {
+public class MasivApplicationTests {
 
     @Test
     public void doSomething() {
