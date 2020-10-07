@@ -24,8 +24,8 @@ public class RouletteAPIController {
     @PostMapping("/roulettes")
     public ResponseEntity<?> createRoulette(@RequestBody Roulette roulette) {
         try {
-            rouletteService.createRoulette(roulette);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            int id = rouletteService.createRoulette(roulette);
+            return new ResponseEntity<>(id, HttpStatus.CREATED);
         } catch (RouletteServicesException e) {
             Logger.getLogger(RouletteAPIController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
@@ -33,9 +33,9 @@ public class RouletteAPIController {
     }
 
     @PutMapping("/roulettes/{id}")
-    public ResponseEntity<?> openRoulette(@RequestBody Roulette roulette, @PathVariable int id) {
+    public ResponseEntity<?> openRoulette(@PathVariable int id) {
         try {
-            rouletteService.openRoulette(roulette, id);
+            rouletteService.openRoulette(id);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (RouletteServicesException ex) {
             Logger.getLogger(RouletteAPIController.class.getName()).log(Level.SEVERE, null, ex);
@@ -43,18 +43,23 @@ public class RouletteAPIController {
         }
     }
 
-    @PostMapping("/roulettes/bets")
-    public ResponseEntity<?> makeABet(@RequestBody Bet bet, @PathVariable int id) {
+    @PostMapping("/roulettes/{id}/bets")
+    public ResponseEntity<?> makeABet(@RequestHeader("x-userID") int userID, @RequestBody Bet bet, @PathVariable int id) {
         try {
-            rouletteService.makeABet(bet, id);
+            rouletteService.makeABet(userID, bet, id);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (RouletteServicesException e) {
             Logger.getLogger(RouletteAPIController.class.getName()).log(Level.SEVERE, e.getMessage(), e);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+            if (e.getMessage().equals("You can´t bet to that value/field") || e.getMessage().equals("Badly built bet")) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            } else {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+            }
+
         }
     }
 
-    @GetMapping("/roulettes/bets/{id]")
+    @PutMapping("/roulettes/bets/{id}")
     public ResponseEntity<?> endOfBets(@PathVariable int id) {
         try {
             return new ResponseEntity<>(rouletteService.endOfBets(id), HttpStatus.ACCEPTED);
@@ -73,7 +78,6 @@ public class RouletteAPIController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-
 
 
 }

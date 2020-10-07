@@ -6,28 +6,33 @@ import masiv.persistence.RoulettePersistence;
 import masiv.persistence.RoulettePersistenceException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service("RedisPersistence")
 public class RedisPersistenceImpl implements RoulettePersistence {
 
+    private Roulette getRouletteByID(int id){
+        return null;
+    }
+
     @Override
-    public void createRoulette(Roulette roulette) throws RoulettePersistenceException {
+    public int createRoulette(Roulette roulette) throws RoulettePersistenceException {
+        return 0;
+    }
+
+    @Override
+    public void openRoulette(int roulette) throws RoulettePersistenceException {
 
     }
 
     @Override
-    public void openRoulette(Roulette roulette) throws RoulettePersistenceException {
+    public void makeABet(int userId, Bet bet, int id) throws RoulettePersistenceException {
 
     }
 
     @Override
-    public void makeABet(Bet bet, int id) throws RoulettePersistenceException {
-
-    }
-
-    @Override
-    public List<Bet> endOfBets(int id) throws RoulettePersistenceException {
+    public HashMap<Integer, List<Double>> endOfBets(int id) throws RoulettePersistenceException {
         return null;
     }
 
