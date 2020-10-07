@@ -39,14 +39,14 @@ In order to visualize and test the API it is recommended to use the Postman tool
 However, it can also be viewed from a web browser by entering the following URL:
 
 ```
-localhost:8080/app
+localhost:8080/app/roulettes
 ```
 
 
 
 
 
-## Construido con 🛠️
+## Built with 🛠️
 
 * Java 8
 * Spring Boot Framework
@@ -57,11 +57,11 @@ localhost:8080/app
 
 
 
-## Autor ✒️
+## Author ✒️
 
 * Juan Sebastián Frásica Galeano
 
-## Licencia 📄
+## License 📄
 
 This project is licensed under the GNU General Public License - [LICENSE](LICENSE) 
 
