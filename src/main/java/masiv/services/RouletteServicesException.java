@@ -1,6 +1,6 @@
 package masiv.services;
 
-public class RouletteServicesException extends Exception{
+public class RouletteServicesException extends Exception {
 
     public RouletteServicesException(String message) {
         super(message);

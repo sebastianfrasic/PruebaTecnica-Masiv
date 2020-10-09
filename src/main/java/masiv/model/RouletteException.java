@@ -1,6 +1,6 @@
 package masiv.model;
 
-public class RouletteException extends Exception{
+public class RouletteException extends Exception {
 
     public RouletteException(String message) {
         super(message);

@@ -1,8 +1,11 @@
 package masiv.model;
 
+import org.springframework.data.redis.core.RedisHash;
+
 import java.util.Arrays;
 import java.util.Objects;
 
+@RedisHash("Bet")
 public class Bet {
 
     public static final int MIN_VALUE = 0;

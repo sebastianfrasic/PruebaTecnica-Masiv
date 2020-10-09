@@ -1,10 +1,12 @@
 package masiv.model;
 
+import org.springframework.data.redis.core.RedisHash;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+@RedisHash("Roulette")
 public class Roulette {
-
 
     private int id;
     private boolean isOpen;
