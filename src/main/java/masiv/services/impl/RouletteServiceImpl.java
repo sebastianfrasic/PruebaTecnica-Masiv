@@ -2,6 +2,7 @@ package masiv.services.impl;
 
 import masiv.model.Bet;
 import masiv.model.Roulette;
+import masiv.model.RouletteException;
 import masiv.persistence.RoulettePersistence;
 import masiv.persistence.RoulettePersistenceException;
 import masiv.services.RouletteServices;
@@ -17,7 +18,7 @@ import java.util.List;
 public class RouletteServiceImpl implements RouletteServices {
 
     @Autowired
-    @Qualifier("inMemoryPersistence")
+    @Qualifier("RedisPersistence")
     RoulettePersistence roulettePersistence;
 
 
@@ -41,6 +42,15 @@ public class RouletteServiceImpl implements RouletteServices {
 
     @Override
     public void makeABet(int userId, Bet bet, int id) throws RouletteServicesException {
+        boolean isValid;
+        try {
+            isValid = bet.isValid();
+        } catch (RouletteException e) {
+            throw new RouletteServicesException(e.getMessage(), e);
+        }
+        if (!isValid) {
+            throw new RouletteServicesException("Badly built bet");
+        }
         try {
             roulettePersistence.makeABet(userId, bet, id);
         } catch (RoulettePersistenceException e) {
@@ -51,7 +61,7 @@ public class RouletteServiceImpl implements RouletteServices {
     @Override
     public HashMap<Integer, List<Double>> endOfBets(int id) throws RouletteServicesException {
         try {
-            return (HashMap<Integer, List<Double>>) roulettePersistence.endOfBets(id);
+            return roulettePersistence.endOfBets(id);
         } catch (RoulettePersistenceException e) {
             throw new RouletteServicesException(e.getMessage(), e);
         }

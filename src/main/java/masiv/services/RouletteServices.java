@@ -19,5 +19,4 @@ public interface RouletteServices {
     HashMap<Integer, List<Double>> endOfBets(int id) throws RouletteServicesException;
 
     List<Roulette> getAllRoulettes() throws RouletteServicesException;
-
 }

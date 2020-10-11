@@ -1,6 +1,8 @@
 package masiv.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class Bet {
     public static final int MAX_VALUE = 36;
     public static final int MAX_AMOUNT = 10000;
     public static final String[] COLORS = {"black", "red"};
+    private Integer id;
     private int bettingAmount;
     private String field;
 
@@ -22,7 +25,7 @@ public class Bet {
         boolean isValid = false;
         if (field != null) {
             if (bettingAmount > 0 && bettingAmount <= MAX_AMOUNT) {
-                if (Arrays.stream(COLORS).anyMatch(field::equals)) {
+                if (Arrays.asList(COLORS).contains(field)) {
                     isValid = true;
                 }
                 if (!isValid) {
@@ -43,7 +46,7 @@ public class Bet {
 
     public double getResult(int result) {
         double money;
-        if (Arrays.stream(COLORS).anyMatch(getField()::equals)) {
+        if (Arrays.asList(COLORS).contains(getField())) {
             if ((result % 2 == 0 && getField().equals("red")) || (result % 2 == 1 && getField().equals("black"))) {
                 money = 1.8 * getBettingAmount();
             } else {
@@ -74,6 +77,14 @@ public class Bet {
 
     public void setField(String field) {
         this.field = field;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

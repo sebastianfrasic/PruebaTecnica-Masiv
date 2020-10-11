@@ -1,24 +1,26 @@
 package masiv.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
 
 @RedisHash("Roulette")
 public class Roulette {
 
-    private int id;
+    @Id
+    private Integer id;
     private boolean isOpen;
-    private ConcurrentHashMap<Integer, List<Bet>> bets;
+    private HashMap<Integer, List<Bet>> bets;
     private int result;
 
     public Roulette() {
-        bets = new ConcurrentHashMap<Integer, List<Bet>>();
+        bets = new HashMap<>();
     }
 
     public Roulette(int id) {
-        bets = new ConcurrentHashMap<Integer, List<Bet>>();
+        bets = new HashMap<>();
         this.id = id;
     }
 
@@ -43,7 +45,7 @@ public class Roulette {
 
     public HashMap<Integer, List<Double>> getResult(int result) {
         HashMap<Integer, List<Double>> results = new HashMap<>();
-        ConcurrentHashMap<Integer, List<Bet>> bets = getBets();
+        HashMap<Integer, List<Bet>> bets = getBets();
         setResult(result);
         for (Map.Entry<Integer, List<Bet>> entry : bets.entrySet()) {
             List<Double> userResults = new ArrayList<>();
@@ -72,11 +74,11 @@ public class Roulette {
         isOpen = open;
     }
 
-    public ConcurrentHashMap<Integer, List<Bet>> getBets() {
+    public HashMap<Integer, List<Bet>> getBets() {
         return bets;
     }
 
-    public void setBets(ConcurrentHashMap<Integer, List<Bet>> bets) {
+    public void setBets(HashMap<Integer, List<Bet>> bets) {
         this.bets = bets;
     }
 
